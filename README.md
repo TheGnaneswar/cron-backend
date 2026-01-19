@@ -1,90 +1,133 @@
-# Job Hunter Engine
+# 🎯 Job Hunter Engine
 
-A cron-based backend engine for aggressive job hunting targeting PE2 roles.
+> **Automated leads generation** for DevOps / Platform Engineering job hunting.
 
-## Architecture
+[![Made with Node.js](https://img.shields.io/badge/Node.js-18+-green.svg)](https://nodejs.org)
+[![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://python.org)
+[![Database](https://img.shields.io/badge/Database-PostgreSQL-blue.svg)](https://supabase.com)
 
-- **Runtime**: Node.js (scrapers, orchestrator) + Python (AI scoring)
-- **Database**: PostgreSQL (Supabase)
-- **AI**: Gemini or OpenAI
-- **Scheduler**: node-cron
-- **Storage**: Google Sheets (optional mirror)
+---
 
-## Directory Structure
+## 🚀 What is This?
+
+A cron-based backend engine that:
+- **Scrapes** jobs from 8+ platforms (LinkedIn, Naukri, Indeed, RemoteOK, etc.)
+- **Filters** based on roles, salary, experience, and keywords
+- **Scores** using AI (Gemini/OpenAI) to prioritize best opportunities
+- **Generates leads** — curated job listings ready for your review
+
+> ⚠️ **Note**: This is a leads generation tool. You apply manually.
+
+---
+
+## 📖 Documentation
+
+| Document | Description |
+|----------|-------------|
+| **[Getting Started](docs/01-getting-started.md)** | Setup, API keys, first run |
+| **[Configuration](docs/02-configuration.md)** | All settings explained |
+| **[Search Filters](docs/03-search-filters.md)** | Customize job targeting |
+| **[AI Scoring](docs/04-ai-scoring.md)** | How scoring works |
+| **[Database Schema](docs/05-database-schema.md)** | Tables & SQL queries |
+| **[Platform Scrapers](docs/06-platform-scrapers.md)** | Scraper configs |
+| **[Building a UI](docs/07-building-ui.md)** | Frontend suggestions |
+
+### Legacy Docs
+| Document | Description |
+|----------|-------------|
+| [Quick Start](docs/QUICKSTART.md) | Original quick setup |
+| [Filter Flow](docs/FILTER_FLOW.md) | Detailed filter pipeline |
+| [AI Filtering](docs/AI_FILTERING.md) | AI classification details |
+| [Flow Diagram](docs/FLOW_DIAGRAM.md) | System architecture |
+
+---
+
+## ⚡ Quick Start
+
+```bash
+# 1. Install dependencies
+npm install
+pip install -r requirements.txt
+
+# 2. Configure environment
+cp .env.example .env
+# Edit .env with your Supabase & Gemini keys
+
+# 3. Initialize database (run in Supabase SQL Editor)
+# Paste contents of: scripts/init-db.sql
+
+# 4. Run the engine
+npm start
+```
+
+---
+
+## 🏗️ Project Structure
 
 ```
 engine/
-├── config/           # Configuration files
+├── config/              # Configuration files
+│   ├── ai.js           # AI provider settings
+│   ├── database.js     # PostgreSQL connection
+│   ├── platforms.js    # Scraper configs
+│   └── search-filters.js  # ⭐ Main filters (edit this!)
+├── docs/               # 📚 Documentation
+├── scripts/
+│   └── init-db.sql     # Database setup
 ├── src/
-│   ├── orchestrator/ # Main cron runner
-│   ├── scrapers/     # Job scrapers (Node.js)
-│   ├── storage/      # Database repositories
-│   ├── scorer/       # AI scoring (Python)
-│   ├── sync/         # Google Sheets sync
-│   └── utils/        # Utilities
-├── scripts/          # Database initialization
-├── logs/             # Application logs
-└── package.json
+│   ├── orchestrator/   # Main cron runner
+│   ├── scrapers/       # Job scrapers
+│   ├── scorer/         # AI scoring (Python)
+│   ├── storage/        # Database repos
+│   └── utils/          # Helpers
+└── logs/               # Application logs
 ```
 
-## Setup
+---
 
-1. **Install Node.js dependencies**:
-   ```bash
-   npm install
-   ```
+## 🔧 Key Configuration
 
-2. **Install Python dependencies**:
-   ```bash
-   pip install -r requirements.txt
-   ```
+Edit `config/search-filters.js` to customize:
+- **Target roles** — What job titles to search
+- **Salary range** — Minimum salary requirements  
+- **Keywords** — Required/excluded/preferred terms
+- **Locations** — Geographic preferences
 
-3. **Configure environment**:
-   ```bash
-   cp .env.example .env
-   # Edit .env with your credentials
-   ```
+---
 
-4. **Initialize database**:
-   ```bash
-   psql -h <your-supabase-host> -U postgres -d postgres -f scripts/init-db.sql
-   ```
+## 📊 Platforms Supported
 
-5. **Run the engine**:
-   ```bash
-   npm start
-   ```
+| Platform | Type | Focus |
+|----------|------|-------|
+| LinkedIn | Major | All jobs |
+| Naukri | India | Indian market |
+| Indeed | Global | All jobs |
+| RemoteOK | Remote | Remote-first |
+| We Work Remotely | Remote | Remote-first |
+| Wellfound | Startups | Startup jobs |
+| Himalayas | Remote | Remote jobs |
+| Remotive | Remote | Remote jobs |
 
-## Platforms Supported
+---
 
-- LinkedIn
-- Naukri
-- Indeed
-- RemoteOK
-- We Work Remotely
-- Wellfound
-- Himalayas
-- Remotive
+## 📈 Scoring System
 
-## Scoring Strategy
+Jobs are scored on three dimensions:
+- **Skill Match** (0-100) — How well your skills align
+- **Role Stretch** (0-100) — Growth opportunity fit
+- **Risk-to-Reward** (0-100) — Company/comp signals
 
-The AI uses a 3-score system:
+Leads are categorized as:
+- `high_priority` — Best matches, apply ASAP
+- `worth_review` — Good, worth looking at
+- `skip` — Not a fit
 
-1. **Skill Match Score** (0-100): Tool/stack alignment
-2. **Role Stretch Score** (0-100): How good the experience gap is
-3. **Risk-to-Reward Score** (0-100): Job urgency/volume indicators
+---
 
-## Auto-Apply Logic
+## 📜 License
 
-Jobs are auto-applied if ANY of these conditions are met:
-- `skill_match >= 70 AND role_stretch >= 65`
-- `skill_match >= 75`
-- `risk_reward >= 70`
+MIT
 
-## Monitoring
+---
 
-Logs are stored in `logs/` directory:
-- `app.log` - General application logs
-- `scraper.log` - Scraper-specific logs
-- `scorer.log` - AI scoring logs
-- `errors.log` - Error tracking
+*Built for aggressive job hunting* 🎯
