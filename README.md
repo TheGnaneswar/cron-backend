@@ -1,6 +1,7 @@
 # 🎯 Job Hunter Engine
 
-> **Automated leads generation** for DevOps / Platform Engineering job hunting.
+> **Automated leads generation** for job hunting.  
+> *Default: DevOps / Platform Engineering roles — fully customizable in `config/search-filters.js`*
 
 [![Made with Node.js](https://img.shields.io/badge/Node.js-18+-green.svg)](https://nodejs.org)
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://python.org)
