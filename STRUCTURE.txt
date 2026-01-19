@@ -1,0 +1,58 @@
+Folder PATH listing for volume Windows
+Volume serial number is 609A-2882
+C:.
+|   .env.example
+|   .gitignore
+|   DOCUMENTATION.md
+|   FLOW_DIAGRAM.md
+|   package.json
+|   QUICKSTART.md
+|   README.md
+|   requirements.txt
+|   STRUCTURE.txt
+|   SUMMARY.md
+|   
++---config
+|       ai.js
+|       database.js
+|       platforms.js
+|       
++---logs
+|       .gitkeep
+|       
++---scripts
+|       init-db.sql
+|       
+\---src
+    +---orchestrator
+    |       index.js
+    |       
+    +---scorer
+    |       runner.js
+    |       scorer.py
+    |       
+    +---scrapers
+    |       base-scraper.js
+    |       himalayas.js
+    |       indeed.js
+    |       linkedin.js
+    |       naukri.js
+    |       remoteok.js
+    |       remotive.js
+    |       wellfound.js
+    |       wwr.js
+    |       
+    +---storage
+    |   \---repositories
+    |           applications.js
+    |           jobs.js
+    |           scores.js
+    |           users.js
+    |           
+    +---sync
+    |       sheets.js
+    |       
+    \---utils
+            errors.js
+            logger.js
+            
